@@ -1,10 +1,15 @@
 import streamlit as st
 import streamlit.components.v1 as components
+import os
 
-# Read the HTML file from your repository
-with open("your_file.html", "r", encoding="utf-8") as f:
-    html_data = f.read()
+file_path = "your_file.html" # Double-check this filename!
 
-# Render it
-st.title("My Streamlit App")
-components.html(html_data, height=500, scrolling=True)
+if os.path.exists(file_path):
+    with open(file_path, "r", encoding="utf-8") as f:
+        html_content = f.read()
+    
+    st.success(f"Found {file_path}!")
+    components.html(html_content, height=600, scrolling=True)
+else:
+    st.error(f"Could not find '{file_path}'.")
+    st.write("Files currently in your folder:", os.listdir("."))
